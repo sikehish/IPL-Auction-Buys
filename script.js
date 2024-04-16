@@ -1,5 +1,23 @@
 "use strict";
 
+const players = JSON.parse(localStorage.getItem("players")) || {};
+
+const playersContainer = document.getElementById("players-container");
+
+for (const playerName in players) {
+    const player = players[playerName];
+    const playerElement = document.createElement("div");
+    playerElement.textContent = `${playerName}: ${player.price} ${player.denomination}`;
+    playersContainer.appendChild(playerElement);
+}
+
+const addPlayerElement = (playerName, player) =>{
+    const playersContainer = document.getElementById("players-container");
+    const playerElement = document.createElement("div");
+    playerElement.textContent = `${playerName}: ${player.price} ${player.denomination}`;
+    playersContainer.appendChild(playerElement);
+}
+
 document.getElementById("player-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const players = JSON.parse(localStorage.getItem("players")) || {};
@@ -28,4 +46,11 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
     document.getElementById("player-name-input").value = "";
     document.getElementById("player-price-input").value = "";
     document.getElementById("denomination").value = "lakhs";
+
+    addPlayerElement(playerName, players[playerName])
 });
+
+document.getElementById("delete-all-btn").addEventListener("click", (e) => {
+    localStorage.clear()
+    playersContainer.innerHTML=""
+})
