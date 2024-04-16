@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Auction buys</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <form id="player-form">
+        <label id="player-name-label" for="player-name-input">Player Name</label>
+        <input id="player-name-input" type="text">
+        <label id="player-price-label" for="player-price-input">Player Price</label>
+        <input id="player-price-input" type="text">
+        <select name="denomination" id="denomination">
+            <option value="crore">Cr</option>
+            <option value="lakhs" selected>Lakhs</option>
+        </select>
+        <button type="submit" id="add-btn">Add</button>
+    </form>
+</body>
+</html>
