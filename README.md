@@ -1,2 +1,2 @@
 # IPL-Auction-Buys
-A project
+A website built for IPL teams to keep track of the players they've bought
