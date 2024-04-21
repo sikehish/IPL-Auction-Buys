@@ -3,12 +3,114 @@
     margin-bottom: 10px;
 }
 
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh;
+}
+
+#stats-container {
+    font-size: 1.3rem;
+    padding: 3px 5px;
+    margin: 2px;
+    border: 4px dashed green;
+    border-radius: 4px;
+}
+
+.cool-line {
+    width: 85%;
+    border-top: dashed 2px black;
+    margin-top: 5px;
+}
+
+#player-form {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+}
+#player-form > input, #player-form > select {
+    margin-bottom: 4px;
+}
+
+.player-price-input-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.player-price-input-div > input {
+    width: 70%;
+}
+.player-price-input-div > select {
+    width: 30%;
+}
+
+#add-btn {
+    width: 30%;
+    margin-top: 6px;
+    align-self: center;
+}
+
+
+@media screen and (max-width: 750px) {
+    #player-form {
+        width: 70vw;
+    }
+}
+
+#your-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    border-top: dashed 2px black;
+    border-bottom: dashed 2px black;
+}
+
+#delete-all-btn {
+    margin-bottom: 15px;
+}
+
+#players-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    gap: 40px; 
+}
+
 .player-table {
     margin-bottom: 20px;
+    width: 40vw;
+    padding: 1vw;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 900px) {
+    #players-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .player-table {
+        width: 70vw;
+    }
+    .cool-line {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .player-table {
+        width: 90vw;
+    }
+    .cool-line {
+        width: 90vw;
+    }
 }
 
 .player-table caption {
     font-weight: bold;
+    font-size: 1.3rem;
 }
 
 .player-table th,
@@ -21,11 +123,6 @@
     background-color: #f2f2f2;
 }
 
-#players-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px; 
-}
 
 .header{
     display: flex;

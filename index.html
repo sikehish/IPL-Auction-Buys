@@ -4,83 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPL Auction Buys</title>
-    <script defer src="script.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <script defer src="./script.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 <body>
-    <h1>RCB Player List</h1>
-    <form id="player-form">
-        <label for="player-name-input">Player Name</label>
-        <input id="player-name-input" type="text" required>
-        <label for="player-price-input">Player Price</label>
-        <input id="player-price-input" type="number" min="0" max="100" step="0.05" required>
-        <select name="denomination" id="denomination">
-            <option value="crore">Cr</option>
-            <option value="lakhs" selected>Lakhs</option>
-        </select>
-        <label for="nationality">Nationality</label>
-        <select name="nationality" id="nationality">
-            <option value="overseas">Overseas</option>
-            <option value="indian">Indian</option>
-        </select>
-        <label for="role">Role</label>
-        <select name="role" id="role">
-            <option value="batsman">Batsman</option>
-            <option value="bowler">Bowler</option>
-            <option value="wicketkeeper">Wicket Keeper</option>
-            <option value="allrounder">All Rounder</option>
-        </select>
-        <button type="submit" id="add-btn">Add</button>
-    </form>
-    <div id="stats-container">
-        <div id="budget" class="budget"></div>
+    <div class="app">
+        <h1>My Cricket Team Player List</h1>
+        <div id="stats-container">
+            <div id="budget" class="budget"></div>
+        </div>
+        <span class="cool-line"></span>
+        <h2>Add a Player</h2>
+        <form id="player-form">
+            <label for="player-name-input">Player Name</label>
+            <input id="player-name-input" type="text" required>
+            <label for="player-price-input">Player Price</label>
+            <div class="player-price-input-div">
+                <input id="player-price-input" type="number" min="0" max="100" step="0.05" required>
+                <select name="denomination" id="denomination">
+                    <option value="crore">Cr</option>
+                    <option value="lakhs" selected>Lakhs</option>
+                </select>
+            </div>
+            <label for="nationality">Nationality</label>
+            <select name="nationality" id="nationality">
+                <option value="overseas">Overseas</option>
+                <option value="indian">Indian</option>
+            </select>
+            <label for="role">Role</label>
+            <select name="role" id="role">
+                <option value="batsman">Batsman</option>
+                <option value="bowler">Bowler</option>
+                <option value="wicketkeeper">Wicket Keeper</option>
+                <option value="allrounder">All Rounder</option>
+            </select>
+            <button type="submit" id="add-btn">Add Player</button>
+        </form>
+        <div id="your-team">
+            <h2>Your Team</h2>
+            <div id="players-container">
+                <table id="batsman-table" class="player-table">
+                    <caption>Batsman</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="bowler-table" class="player-table">
+                    <caption>Bowler</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="wicketkeeper-table" class="player-table">
+                    <caption>Wicket Keeper</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="allrounder-table" class="player-table">
+                    <caption>All Rounder</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button id="delete-all-btn">Delete All</button>
+        </div>
     </div>
-    <div id="players-container">
-        <table id="batsman-table" class="player-table">
-            <caption>Batsman</caption>
-            <thead>
-                <tr>
-                    <th>Player Name</th>
-                    <th>Price</th>
-                    <th>Nationality</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <table id="bowler-table" class="player-table">
-            <caption>Bowler</caption>
-            <thead>
-                <tr>
-                    <th>Player Name</th>
-                    <th>Price</th>
-                    <th>Nationality</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <table id="wicketkeeper-table" class="player-table">
-            <caption>Wicket Keeper</caption>
-            <thead>
-                <tr>
-                    <th>Player Name</th>
-                    <th>Price</th>
-                    <th>Nationality</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <table id="allrounder-table" class="player-table">
-            <caption>All Rounder</caption>
-            <thead>
-                <tr>
-                    <th>Player Name</th>
-                    <th>Price</th>
-                    <th>Nationality</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-    <button id="delete-all-btn">Delete All</button>
 </body>
 </html>
