@@ -103,7 +103,7 @@ for (const playerName in players) {
 
 function manageBudget(player, operation) {
     //Keeping count of overseas players
-    const players = JSON.parse(localStorage.getItem("players"));
+    const players = JSON.parse(localStorage.getItem("players")) || {};
     const count = Object.values(players).filter((player) => player.nationality === "overseas").length;
 
     const playerPrice =player.price * (player.denomination === "crore" ? 10000000 : 100000);
@@ -186,4 +186,6 @@ document.getElementById("reset-btn").addEventListener("click", () => {
     document.getElementById("player-name-input").value = "";
     document.getElementById("player-price-input").value = "";
     document.getElementById("denomination").value = "lakhs";
+     document.getElementById("total-players-value").textContent = 0;
+    document.getElementById("total-overseas-players-value").textContent = 0;
 });
