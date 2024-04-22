@@ -1,6 +1,11 @@
 "use strict";
 
+const MIN_PLAYERS=18
+const MAX_PLAYERS=25
+const MAX_OVERSEAS=8
+
 let budget = localStorage.getItem("budget");
+
 
 function formatBudget(budget) {
     let rupee = new Intl.NumberFormat("en-IN", {
@@ -16,7 +21,7 @@ function formatBudget(budget) {
 const inputBudgetIfEmpty = (operation) => {
     while (budget === null || isNaN(budget) || budget === "") {
         budget = prompt("Enter a valid budget in Cr");
-        if (operation == "delete-all" && budget === null) return "cancel";
+        if (operation == "reset" && budget === null) return "cancel";
         if (Number(budget)) {
             budget *= 10000000;
             localStorage.setItem("originalBudget", budget);
@@ -38,6 +43,17 @@ const budgetElement = document.getElementById("budget");
 budgetElement.textContent = `Budget: ${formatBudget(budget)}`;
 
 const players = JSON.parse(localStorage.getItem("players")) || {};
+
+const updateStats = () => {
+    const players = JSON.parse(localStorage.getItem("players")) || {};
+    const totalPlayersCount = Object.keys(players).length;
+    const totalOverseasPlayersCount = Object.values(players).filter(player => player.nationality === "overseas").length;
+    document.getElementById("total-players-value").textContent = totalPlayersCount;
+    document.getElementById("total-overseas-players-value").textContent = totalOverseasPlayersCount;
+};
+
+
+updateStats();
 
 const addPlayerRow = (table, playerName, player) => {
     console.log(table)
@@ -76,7 +92,7 @@ const addPlayer = (playerName, player, initialRender=false) => {
                 break;
         }
     } catch (error) {
-        alert(error.message);
+        throw(error.message)
     }
 };
 
@@ -86,12 +102,24 @@ for (const playerName in players) {
 }
 
 function manageBudget(player, operation) {
-    const playerPrice =
-        player.price * (player.denomination === "crore" ? 10000000 : 100000);
+    //Keeping count of overseas players
+    const players = JSON.parse(localStorage.getItem("players"));
+    const count = Object.values(players).filter((player) => player.nationality === "overseas").length;
+
+    const playerPrice =player.price * (player.denomination === "crore" ? 10000000 : 100000);
     switch (operation) {
         case "add":
-            if (playerPrice >= budget) {
+            if (playerPrice > budget) {
                 throw new Error("Player price cannot exceed budget!");
+            }
+            else if(playerPrice==budget && Object.keys(players)<MIN_PLAYERS-1){
+                throw new Error("You need to buy atleast " + (MIN_PLAYERS-Object.keys(players)-1) + " players!")
+            }
+            else if(Object.keys(players)==MAX_PLAYERS){
+                throw new Error("You can't have more than 25 players playing for you!")
+            }
+            else if(count==MAX_OVERSEAS){
+                throw new Error("You can't have more than 8 overseas players!")
             }
             budget -= playerPrice;
             break;
@@ -130,16 +158,22 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
 
     const player = { price: playerPrice, denomination, nationality, role };
 
-    addPlayer(playerName, player);
+    try{
+        addPlayer(playerName, player);
+        updateStats()
+    }catch(err){
+        alert(err)
+        return
+    }
 
     document.getElementById("player-name-input").value = "";
     document.getElementById("player-price-input").value = "";
     document.getElementById("denomination").value = "lakhs";
 });
 
-document.getElementById("delete-all-btn").addEventListener("click", () => {
+document.getElementById("reset-btn").addEventListener("click", () => {
     budget = null;
-    if (inputBudgetIfEmpty("delete-all") === "cancel") {
+    if (inputBudgetIfEmpty("reset") === "cancel") {
         budget = localStorage.getItem("budget");
         return;
     }
@@ -149,4 +183,7 @@ document.getElementById("delete-all-btn").addEventListener("click", () => {
     bowlerTable.innerHTML = "";
     wicketkeeperTable.innerHTML = "";
     allrounderTable.innerHTML = "";
+    document.getElementById("player-name-input").value = "";
+    document.getElementById("player-price-input").value = "";
+    document.getElementById("denomination").value = "lakhs";
 });

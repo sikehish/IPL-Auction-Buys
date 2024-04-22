@@ -67,7 +67,7 @@
     border-bottom: dashed 2px black;
 }
 
-#delete-all-btn {
+#reset-btn {
     margin-bottom: 15px;
 }
 
@@ -126,4 +126,18 @@
 
 .header{
     display: flex;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.stat {
+    margin-right: 20px;
+}
+
+.stat span {
+    font-weight: bold;
 }
