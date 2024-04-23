@@ -19,10 +19,10 @@ function formatBudget(budget) {
 }
 
 const inputBudgetIfEmpty = (operation) => {
-    while (budget === null || isNaN(budget) || budget === "") {
+    while (budget === null || isNaN(budget) || budget === "" || Number(budget) <= 0) {
         budget = prompt("Enter a valid budget in Cr");
         if (operation == "reset" && budget === null) return "cancel";
-        if (Number(budget)) {
+        if (Number(budget) > 0) {
             budget *= 10000000;
             localStorage.setItem("originalBudget", budget);
         }
@@ -30,6 +30,7 @@ const inputBudgetIfEmpty = (operation) => {
     budget = Number(budget);
     localStorage.setItem("budget", budget);
 };
+
 
 inputBudgetIfEmpty("first-render");
 
