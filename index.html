@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Auction Buys</title>
+    <script defer src="./script.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+    <div class="app">
+        <h1>My Cricket Team Player List</h1>
+        <span class="cool-line"></span>
+        <h2>Add a Player</h2>
+        <form id="player-form" method="POST">
+            <label for="player-name-input">Player Name</label>
+            <input id="player-name-input" type="text" required>
+            <label for="player-price-input">Player Price</label>
+            <div class="player-price-input-div">
+                <input id="player-price-input" type="number" min="0" max="100" step="0.05" required>
+                <select name="denomination" id="denomination">
+                    <option value="crore">Cr</option>
+                    <option value="lakhs" selected>Lakhs</option>
+                </select>
+            </div>
+            <label for="nationality">Nationality</label>
+            <select name="nationality" id="nationality">
+                <option value="overseas">Overseas</option>
+                <option value="indian">Indian</option>
+            </select>
+            <button type="submit" id="add-btn">Add Player</button>
+        </form>
+        <div id="your-team">
+            <h2>Your Team</h2>
+            <div id="players-container">
+                <table class="player-table">
+                    <caption>Players</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
