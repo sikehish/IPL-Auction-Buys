@@ -113,10 +113,10 @@ function manageBudget(player, operation) {
             if (playerPrice > budget) {
                 throw new Error("Player price cannot exceed budget!");
             }
-            else if(playerPrice==budget && Object.keys(players)<MIN_PLAYERS-1){
-                throw new Error("You need to buy atleast " + (MIN_PLAYERS-Object.keys(players)-1) + " players!")
+            else if(playerPrice==budget && Object.keys(players).length<MIN_PLAYERS-1){
+                throw new Error("You need to buy atleast " + (MIN_PLAYERS-Object.keys(players).length-1) + " players!")
             }
-            else if(Object.keys(players)==MAX_PLAYERS){
+            else if(Object.keys(players).length==MAX_PLAYERS){
                 throw new Error("You can't have more than 25 players playing for you!")
             }
             else if(count==MAX_OVERSEAS){
