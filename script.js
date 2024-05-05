@@ -1,10 +1,15 @@
-const MIN_PLAYERS=18;
-const MAX_PLAYERS=25;
-const MAX_OVERSEAS=8;
+// Constants for minimum and maximum number of players and maximum number of overseas players
+const MIN_PLAYERS = 18;
+const MAX_PLAYERS = 25;
+const MAX_OVERSEAS = 8;
 
-let budget = localStorage.getItem("budget"); // Using localStorage to keep app data even if the user leaves or reloads the page.
-const players = JSON.parse(localStorage.getItem("players")) || {}
+// Retrieve budget from localStorage, using localStorage to keep app data even if the user leaves or reloads the page
+let budget = localStorage.getItem("budget");
 
+// Retrieve players data from localStorage, if it exists, or initialize an empty object
+const players = JSON.parse(localStorage.getItem("players")) || {};
+
+// Function to format budget amount with currency symbol
 function formatBudget(budget) {
     let rupee = new Intl.NumberFormat("en-IN", {
         style: "currency",
@@ -16,6 +21,7 @@ function formatBudget(budget) {
     return `Rs ${budget}`;
 }
 
+// Function to prompt user for budget input if it is empty or invalid
 const inputBudgetIfEmpty = (operation) => {
     while (budget === null || isNaN(budget) || budget === "" || Number(budget) <= 0) {
         budget = prompt("Enter a valid budget in Cr");
@@ -29,8 +35,10 @@ const inputBudgetIfEmpty = (operation) => {
     localStorage.setItem("budget", budget);
 };
 
+// Call inputBudgetIfEmpty function to prompt for budget input on first render
 inputBudgetIfEmpty("first-render");
 
+// Get references to HTML elements
 const statsContainer = document.getElementById("stats-container");
 const batsmanTable = document.getElementById("batsman-table").querySelector("tbody");
 const bowlerTable = document.getElementById("bowler-table").querySelector("tbody");
@@ -38,9 +46,10 @@ const wicketkeeperTable = document.getElementById("wicketkeeper-table").querySel
 const allrounderTable = document.getElementById("allrounder-table").querySelector("tbody");
 const budgetElement = document.getElementById("budget");
 
-
+// Display budget amount on the page
 budgetElement.textContent = `Budget: ${formatBudget(budget)}`;
 
+// Function to update statistics on the page
 const updateStats = () => {
     const players = JSON.parse(localStorage.getItem("players")) || {};
     const totalPlayersCount = Object.keys(players).length;
@@ -48,9 +57,11 @@ const updateStats = () => {
     document.getElementById("total-players-value").textContent = totalPlayersCount;
     document.getElementById("total-overseas-players-value").textContent = totalOverseasPlayersCount;
 };
+
+// Call updateStats function to display initial statistics
 updateStats();
 
-// Adding an extra parameter to add the player to a specific table
+// Function to add a player row to the specified table
 const addPlayerRow = (table, playerName, player) => {
     const row = table.insertRow();
     const nameCell = row.insertCell(0);
@@ -62,6 +73,7 @@ const addPlayerRow = (table, playerName, player) => {
     nationalityCell.textContent = player.nationality;
 };
 
+// Function to add a player to the players object and display the player in the appropriate table
 const addPlayer = (playerName, player, initialRender=false) => {
     try {
         if(!initialRender) manageBudget(player, "add");
@@ -94,11 +106,13 @@ const addPlayer = (playerName, player, initialRender=false) => {
     }
 };
 
+// Loop through existing players and add them to the players object and display in the appropriate table
 for (const playerName in players) {
     const player = players[playerName];
     addPlayer(playerName, player, true);
 }
 
+// Function to manage budget based on player addition or removal
 function manageBudget(player, operation) {
     // Keeping count of overseas players
     const count = Object.values(players).filter((player) => player.nationality === "overseas").length;
@@ -128,6 +142,7 @@ function manageBudget(player, operation) {
     }
 }
 
+// Event listener for player form submission
 document.getElementById("player-form").addEventListener("submit", (e) => {
     e.preventDefault();
     // Getting all the values from the form
@@ -163,12 +178,13 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
         return
     }
 
-    // To clear the form - not always needed, it would do it automatically, but we did e.preventDefault() that prevents the form from clearing
+    // To clear the form - not always needed, it would do it automatically, but we did e.preventDefault() that prevents the form from clearing.
     document.getElementById("player-name-input").value = "";
     document.getElementById("player-price-input").value = "";
     document.getElementById("denomination").value = "lakhs";
 });
 
+// Event listener for reset button click
 document.getElementById("reset-btn").addEventListener("click", () => {
     budget = null; // Reset the budget
     // Ask for a budget again.
@@ -186,6 +202,6 @@ document.getElementById("reset-btn").addEventListener("click", () => {
     document.getElementById("player-name-input").value = "";
     document.getElementById("player-price-input").value = "";
     document.getElementById("denomination").value = "lakhs";
-     document.getElementById("total-players-value").textContent = 0;
+    document.getElementById("total-players-value").textContent = 0;
     document.getElementById("total-overseas-players-value").textContent = 0;
 });
