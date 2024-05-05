@@ -73,7 +73,7 @@
 
 #players-container {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 5px;
     margin-bottom: 5px;
     gap: 40px; 

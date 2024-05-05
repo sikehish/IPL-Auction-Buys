@@ -41,13 +41,53 @@
                 <option value="overseas">Overseas</option>
                 <option value="indian">Indian</option>
             </select>
+            <label for="role">Role</label>
+            <select name="role" id="role">
+                <option value="batsman">Batsman</option>
+                <option value="bowler">Bowler</option>
+                <option value="wicketkeeper">Wicket Keeper</option>
+                <option value="allrounder">All Rounder</option>
+            </select>
             <button type="submit" id="add-btn">Add Player</button>
         </form>
         <div id="your-team">
             <h2>Your Team</h2>
             <div id="players-container">
-                <table id="player-table" class="player-table">
-                    <caption>Players</caption>
+                <table id="batsman-table" class="player-table">
+                    <caption>Batsman</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="bowler-table" class="player-table">
+                    <caption>Bowler</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="wicketkeeper-table" class="player-table">
+                    <caption>Wicket Keeper</caption>
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Price</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="allrounder-table" class="player-table">
+                    <caption>All Rounder</caption>
                     <thead>
                         <tr>
                             <th>Player Name</th>

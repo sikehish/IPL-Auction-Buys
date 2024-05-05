@@ -32,7 +32,10 @@ const inputBudgetIfEmpty = (operation) => {
 inputBudgetIfEmpty("first-render");
 
 const statsContainer = document.getElementById("stats-container");
-const playersTable = document.getElementById("player-table");
+const batsmanTable = document.getElementById("batsman-table").querySelector("tbody");
+const bowlerTable = document.getElementById("bowler-table").querySelector("tbody");
+const wicketkeeperTable = document.getElementById("wicketkeeper-table").querySelector("tbody");
+const allrounderTable = document.getElementById("allrounder-table").querySelector("tbody");
 const budgetElement = document.getElementById("budget");
 
 
@@ -47,8 +50,9 @@ const updateStats = () => {
 };
 updateStats();
 
-const addPlayerRow = (playerName, player) => {
-    const row = playersTable.insertRow();
+// Adding an extra parameter to add the player to a specific table
+const addPlayerRow = (table, playerName, player) => {
+    const row = table.insertRow();
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
     const nationalityCell = row.insertCell(2);
@@ -66,7 +70,24 @@ const addPlayer = (playerName, player, initialRender=false) => {
         players[playerName] = player;
         // Storing the data of players in our localStorage
         localStorage.setItem("players", JSON.stringify(players));
-        addPlayerRow(playerName, player);
+
+        // Sending the player details to be added to the right table
+        switch (player.role) {
+            case "batsman":
+                addPlayerRow(batsmanTable, playerName, player);
+                break;
+            case "bowler":
+                addPlayerRow(bowlerTable, playerName, player);
+                break;
+            case "wicketkeeper":
+                addPlayerRow(wicketkeeperTable, playerName, player);
+                break;
+            case "allrounder":
+                addPlayerRow(allrounderTable, playerName, player);
+                break;
+            default:
+                break;
+        }
     } catch (error) {
         console.log(error)
         throw(error.message)
@@ -79,7 +100,7 @@ for (const playerName in players) {
 }
 
 function manageBudget(player, operation) {
-    //Keeping count of overseas players
+    // Keeping count of overseas players
     const count = Object.values(players).filter((player) => player.nationality === "overseas").length;
 
     const playerPrice =player.price * (player.denomination === "crore" ? 10000000 : 100000);
@@ -114,6 +135,7 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
     const playerPrice = Number(document.getElementById("player-price-input").value.trim());
     const denomination = document.getElementById("denomination").value;
     const nationality = document.getElementById("nationality").value;
+    const role = document.getElementById("role").value;
 
     // Some checks to make sure our data is right.
     if (!playerName) {
@@ -131,7 +153,7 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
         return;
     }
 
-    const player = { price: playerPrice, denomination, nationality };
+    const player = { price: playerPrice, denomination, nationality, role };
 
     try {
         addPlayer(playerName, player);
