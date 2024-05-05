@@ -168,3 +168,24 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
     document.getElementById("player-price-input").value = "";
     document.getElementById("denomination").value = "lakhs";
 });
+
+document.getElementById("reset-btn").addEventListener("click", () => {
+    budget = null; // Reset the budget
+    // Ask for a budget again.
+    // If the user cancels the prompt, then don't delete the player data and restore the budget value
+    if (inputBudgetIfEmpty("reset") === "cancel") {
+        budget = localStorage.getItem("budget");
+        return;
+    }
+    localStorage.removeItem("players");
+    budgetElement.textContent = `Budget: ${formatBudget(budget)}`;
+    batsmanTable.innerHTML = "";
+    bowlerTable.innerHTML = "";
+    wicketkeeperTable.innerHTML = "";
+    allrounderTable.innerHTML = "";
+    document.getElementById("player-name-input").value = "";
+    document.getElementById("player-price-input").value = "";
+    document.getElementById("denomination").value = "lakhs";
+     document.getElementById("total-players-value").textContent = 0;
+    document.getElementById("total-overseas-players-value").textContent = 0;
+});
