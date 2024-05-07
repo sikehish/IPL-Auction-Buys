@@ -39,7 +39,6 @@ const budgetElement = document.getElementById("budget");
 budgetElement.textContent = `Budget: ${formatBudget(budget)}`;
 
 const updateStats = () => {
-    const players = JSON.parse(localStorage.getItem("players")) || {};
     const totalPlayersCount = Object.keys(players).length;
     const totalOverseasPlayersCount = Object.values(players).filter(player => player.nationality === "overseas").length;
     document.getElementById("total-players-value").textContent = totalPlayersCount;
