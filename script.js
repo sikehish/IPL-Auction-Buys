@@ -65,7 +65,7 @@ const addPlayerRow = (table, playerName, player) => {
 
     nameCell.textContent = playerName;
     priceCell.textContent = `${player.price} ${player.denomination}`;
-    nationalityCell.textContent = player.nationality;
+    nationalityCell.textContent = player.nationality[0].toUpperCase() + player.nationality.slice(1);
 };
 
 const addPlayer = (playerName, player, initialRender=false) => {
